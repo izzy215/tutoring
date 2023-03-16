@@ -1,0 +1,11 @@
+package com.example.demo;
+
+public class viav {
+
+	@Setter
+	String id;
+	String date;
+	String time;
+	String title;
+	
+}
