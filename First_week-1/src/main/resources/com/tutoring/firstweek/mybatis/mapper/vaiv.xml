@@ -7,20 +7,48 @@
 
 
 <select id="getList">
+	
+	
+	SELECT result.date, result.title
+	FROM (
+	    SELECT press_info.id, press_info.date, press_info.title, speaker_list.name, speaker_list.party
+	    FROM press_info
+	    LEFT OUTER JOIN speaker_list
+	    ON press_info.id = speaker_list.press_id
+	    UNION
+	    SELECT press_info.id, press_info.date, press_info.title, speaker_list.name, speaker_list.party
+	    FROM press_info
+	    RIGHT OUTER JOIN speaker_list
+	    ON press_info.id = speaker_list.press_id
+	) as result
+	<where>
+		<if test='from_date!="" and to_date!=""'>
+		
+		 result.date between #{from_date} and #{to_date}
+		 </if>
+		<if test='name!=""'>
+		 result.name = #{name}
+		 </if>
+		<if test='name!=""'>
+		AND result.party = #{party};
+		 </if>
+	</where>	
+SELECT result.date, result.title
+FROM (
+    SELECT press_info.id, press_info.date, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    LEFT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+    UNION
+    SELECT press_info.id, press_info.date, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    RIGHT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+) as result
+WHERE result.date between '2014-02-09' and  '2021-03-09'
+AND result.name = '오세훈'
+AND result.party = '더불어민주당';
 
-
-select date, title from 
-(
-select * from press_info left join speaker_list
-on pressinfo.id = speaker_list.press_id 
-union  
-select * from press_info right join speaker_list
-on pressinfo.id = speaker_list.press_id) 
-
-where date > #{fromdate} 
-and date<#{todate}
-and name =#{name}
-and party = #{party}
 
 </select>
 </mapper>

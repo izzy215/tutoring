@@ -15,7 +15,7 @@ public class VaivServiceImpl {
 	public VaivServiceImpl(VaivMapper dao) {
 		this.dao=dao;
 	}
-public List<Press> getBoardList(int page, int limit) {
+public List<Vaiv> getBoardList(int page, int limit) {
 		
 		HashMap<String,Integer>map = new HashMap<String,Integer>();
 		int startrow = (page-1)*limit+1;
