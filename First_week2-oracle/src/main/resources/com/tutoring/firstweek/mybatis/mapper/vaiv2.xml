@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tutoring.firstweek.mybatis.mapper.VaivMapper">
+
+
+
+<select id="22getList" resultType ="Vaiv">
+<![CDATA[
+
+	  select rownum, pdate, title 
+from
+(SELECT result.pdate, result.title
+FROM (
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    LEFT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+    UNION
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    RIGHT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+) result
+WHERE
+result.pdate BETWEEN TO_DATE('2020-10-01', 'YYYY-MM-DD') 
+			AND  TO_DATE('2021-01-20', 'YYYY-MM-DD')
+AND result.name = '신영대'
+AND result.party = '더불어민주당'
+	order by pdate)
+	where rownum<100; 
+	
+  ]]>
+</select>
+<!-- <![CDATA[
+
+	  ]]>	select rownum, pdate, title 
+from
+(SELECT result.pdate, result.title
+FROM (
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    LEFT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+    UNION
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    RIGHT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+) result 
+
+	<where>
+		<if test='from_date!=null and to_date!=null'>
+		
+		result.pdate BETWEEN TO_DATE(#{from_date,jdbcType=VARCHAR}, 'YYYY-MM-DD') 
+			AND  TO_DATE(#{to_date,jdbcType=VARCHAR}, 'YYYY-MM-DD')
+		 </if>
+		<if test='name!=""'>
+		and result.name = #{name,jdbcType=VARCHAR}
+		 </if>
+		 
+		<if test='party!=""'>
+		and result.party = #{party,jdbcType=VARCHAR}
+		 </if>
+	</where>
+	order by pdate)
+	where rownum<100 -->
+	<!-- 
+	SELECT result.pdate, result.title  FROM
+(select rownum rnum, rresult.* from(     
+		SELECT press_info.id, press_info.pdate,
+		press_info.title, speaker_list.name, speaker_list.party  
+		FROM press_info     LEFT OUTER JOIN speaker_list    
+		ON press_info.id = speaker_list.press_id     UNION   
+		SELECT press_info.id, press_info.pdate, press_info.title, 
+		speaker_list.name, speaker_list.party     FROM press_info   
+		RIGHT OUTER JOIN speaker_list   
+		ON press_info.id = speaker_list.press_id 
+		) rresult      )result where rnum < 10
+		order by pdate;
+		
+		
+		
+		
+		 -->
+<!-- select rownum, pdate, title 
+from
+(SELECT result.pdate, result.title
+FROM (
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    LEFT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+    UNION
+    SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+    FROM press_info
+    RIGHT OUTER JOIN speaker_list
+    ON press_info.id = speaker_list.press_id
+) result
+WHERE
+result.pdate BETWEEN TO_DATE('2020-10-01', 'YYYY-MM-DD') 
+			AND  TO_DATE('2021-01-20', 'YYYY-MM-DD')
+AND result.name = '신영대'
+AND result.party = '더불어민주당'
+	order by pdate)
+	where rownum<100; 
+	
+	
+	
+	
+
+
+select rownum, pdate, title 
+from
+(SELECT result.pdate, result.title
+FROM (
+   SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+   FROM press_info
+   LEFT OUTER JOIN speaker_list
+   ON press_info.id = speaker_list.press_id
+   UNION
+   SELECT press_info.id, press_info.pdate, press_info.title, speaker_list.name, speaker_list.party
+   FROM press_info
+   RIGHT OUTER JOIN speaker_list
+   ON press_info.id = speaker_list.press_id
+) result
+
+result.pdate BETWEEN TO_DATE('2020-10-01', 'YYYY-MM-DD') 
+	AND  TO_DATE('2021-01-20', 'YYYY-MM-DD')
+and
+ result.name = '신영대'
+AND result.party = '더불어민주당'
+order by pdate)
+where rownum<100;
+	-->
+
+</mapper>

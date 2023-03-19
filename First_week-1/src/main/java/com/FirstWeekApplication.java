@@ -1,5 +1,5 @@
 package com;
-
+//localhost:9500/firstweek/vaiv
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
