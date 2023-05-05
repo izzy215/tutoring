@@ -1,4 +1,5 @@
-# tutoring -firstweek
+# 튜터링 -firstweek
+
 1. mysql 실행 안됨 database 생성후 인코딩타입 안맞음..
 
 ![oracleinsert중](https://user-images.githubusercontent.com/113905712/226177057-2658aa2f-7307-4dff-87b8-cadbba1f646b.PNG)
